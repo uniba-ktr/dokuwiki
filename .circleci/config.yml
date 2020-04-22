@@ -38,7 +38,7 @@ commands:
     parameters:
       url:
         description: "QEMU static conf file for Docker"
-        type: stringdocker-gogs
+        type: string
         default: "https://github.com/computermouth/qemu-static-conf.git"
     steps:
       - run:
