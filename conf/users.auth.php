@@ -1,1 +1,1 @@
-admin:21232f297a57a5a743894a0e4a801fc3:admin:admin@localhost:admin,users,devel,support
+admin:$1$4fd0ad31$.cId7p1uxI4a.RcrH81On0:-:-:admin,user
