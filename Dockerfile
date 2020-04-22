@@ -17,8 +17,6 @@ RUN apk add --no-cache --update \
     curl
 
 ENV VERSION=dokuwiki-2018-04-22b
-#https://download.dokuwiki.org/out/dokuwiki-e649a9f2e43939e2a740acf899c5f776.tgz
-
 # download dokuwiki
 RUN curl -L -o tmp.tar.gz http://download.dokuwiki.org/src/dokuwiki/$VERSION.tgz \
     && tar xz -C / -f tmp.tar.gz \
@@ -38,14 +36,14 @@ COPY ./conf/ /dokuwiki-conf/
 
 WORKDIR /dokuwiki
 EXPOSE 80
-VOLUME ["/dokuwiki-data", "/dokuwiki-conf"]
+VOLUME ["/dokuwiki"]
 CMD php -S 0.0.0.0:80 -t /dokuwiki/
 
-LABEL de.uniba.ktr.cadvisor.version=$VERSION \
-      de.uniba.ktr.cadvisor.name="Dokuwiki" \
-      de.uniba.ktr.cadvisor.docker.cmd="docker run --publish=80:80 --detach=true --name=dokuwiki unibaktr/dokuwiki" \
-      de.uniba.ktr.cadvisor.vendor="Marcel Grossmann" \
-      de.uniba.ktr.cadvisor.architecture=$TARGETPLATFORM \
-      de.uniba.ktr.cadvisor.vcs-ref=$VCS_REF \
-      de.uniba.ktr.cadvisor.vcs-url=$VCS_URL \
-      de.uniba.ktr.cadvisor.build-date=$BUILD_DATE
+LABEL de.uniba.ktr.dokuwiki.version=$VERSION \
+      de.uniba.ktr.dokuwiki.name="Dokuwiki" \
+      de.uniba.ktr.dokuwiki.docker.cmd="docker run --publish=80:80 --detach=true --name=dokuwiki unibaktr/dokuwiki" \
+      de.uniba.ktr.dokuwiki.vendor="Marcel Grossmann" \
+      de.uniba.ktr.dokuwiki.architecture=$TARGETPLATFORM \
+      de.uniba.ktr.dokuwiki.vcs-ref=$VCS_REF \
+      de.uniba.ktr.dokuwiki.vcs-url=$VCS_URL \
+      de.uniba.ktr.dokuwiki.build-date=$BUILD_DATE
