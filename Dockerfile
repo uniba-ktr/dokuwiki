@@ -1,4 +1,8 @@
 FROM alpine:latest
+ARG VERSION=dokuwiki-2018-04-22b
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VCS_URL
 
 RUN apk add --no-cache --update \
     php7-cli \
@@ -16,7 +20,6 @@ RUN apk add --no-cache --update \
     php7-session \
     curl
 
-ENV VERSION=dokuwiki-2018-04-22b
 # download dokuwiki
 RUN curl -L -o tmp.tar.gz http://download.dokuwiki.org/src/dokuwiki/$VERSION.tgz \
     && tar xz -C / -f tmp.tar.gz \

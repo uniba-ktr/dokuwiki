@@ -38,7 +38,7 @@ commands:
     parameters:
       url:
         description: "QEMU static conf file for Docker"
-        type: string
+        type: stringdocker-gogs
         default: "https://github.com/computermouth/qemu-static-conf.git"
     steps:
       - run:
@@ -75,7 +75,7 @@ commands:
 
 jobs:
   buildx:
-    working_directory: ~/docker-gogs
+    working_directory: ~/dokuwiki
     machine:
       image: ubuntu-1604:201903-01
     steps:
@@ -84,11 +84,24 @@ jobs:
       - install-qemu
       - install-buildx
       - run: make
+  badge:
+    machine: true
+    steps:
+      - run:
+          name: "Call microbadger's webhook"
+          command: curl -X POST https://hooks.microbadger.com/images/unibaktr/dokuwiki/RBvywgfGUo1U_aZxVUorsr7l8nM=
+
+tag_filter: &tag_filter
+  filters:
+    tags:
+      only: /.*/
 
 workflows:
-  buildx-and-push:
+  buildx-and-badge:
     jobs:
       - buildx:
-          filters:
-              tags:
-                only: /.*/
+          <<: *tag_filter
+      - badge:
+          requires:
+            - buildx
+          <<: *tag_filter
